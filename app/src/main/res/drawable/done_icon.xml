@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Blue Circular Background -->
+    <item android:drawable="@drawable/blue_circle" />
+
+    <!-- Done Icon -->
+    <item android:drawable="@drawable/ic_done" />
+</layer-list>
