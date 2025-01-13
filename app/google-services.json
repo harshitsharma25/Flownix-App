@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "694798879923",
+    "project_id": "flownix-3a85a",
+    "storage_bucket": "flownix-3a85a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:694798879923:android:45ce545334778a0c3df4c6",
+        "android_client_info": {
+          "package_name": "com.example.flownix"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlBjkZdLpFTEMZcqy542I5WmBf6ajZzSI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
