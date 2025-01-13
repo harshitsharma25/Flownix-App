@@ -10,7 +10,9 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.flownix.R
 import com.example.flownix.adapters.TaskListItemsAdapter
 import com.example.flownix.databinding.ActivityTaskListBinding
@@ -20,6 +22,10 @@ import com.example.flownix.models.Card
 import com.example.flownix.models.Task
 import com.example.flownix.models.User
 import com.example.flownix.utils.Constants
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class TaskListActivity : BaseActivity() {
 
@@ -53,6 +59,9 @@ class TaskListActivity : BaseActivity() {
             supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back_icon)
         }
 
+        // Change the color of the overflow icon
+        binding?.toolbarTaskListActivity?.overflowIcon?.setTint(ContextCompat.getColor(this, R.color.white))
+
         binding?.toolbarTaskListActivity?.setNavigationOnClickListener{
             onBackPressedDispatcher.onBackPressed()
         }
@@ -61,6 +70,7 @@ class TaskListActivity : BaseActivity() {
     fun boardMembersDetailsList(list : ArrayList<User>){
         mAssignedMemberDetailList = list
         hideProgressDialog()
+        moveToEnd()
 
         if(mBoardDetails.taskList.isEmpty()){
             val addTaskList = Task(resources.getString(R.string.add_list))
@@ -95,13 +105,29 @@ class TaskListActivity : BaseActivity() {
     }
 
     fun createTaskList(taskListName : String){
-        val task = Task(taskListName,FirestoreClass().getCurrentUserId())
-        mBoardDetails.taskList.add(0,task)
+
+        val task = Task(taskListName, FirestoreClass().getCurrentUserId())
+        // Check if the task list is empty
+        if (mBoardDetails.taskList.isEmpty()) {
+            mBoardDetails.taskList.add(0, task) // Insert at index 0 if list is empty
+        } else {
+            val insertIndex = mBoardDetails.taskList.size - 1
+            mBoardDetails.taskList.add(insertIndex, task) // Insert at second-to-last index
+        }
 
 
         showProgressDialog(resources.getString(R.string.please_wait))
 
-        FirestoreClass().addUpdateTaskList(this,mBoardDetails)
+        FirestoreClass().addUpdateTaskList(this@TaskListActivity, mBoardDetails)
+
+    }
+
+    fun moveToEnd(){
+        // Scroll to the newly added task
+        findViewById<RecyclerView>(R.id.rvTaskList).post {
+            findViewById<RecyclerView>(R.id.rvTaskList).scrollToPosition(mBoardDetails.taskList.size - 2)
+        }
+
     }
 
     fun updateTaskList(position : Int, listName : String, model : Task){

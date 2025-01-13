@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 
 import android.os.Bundle
+import android.os.StrictMode
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
@@ -80,6 +81,10 @@ class MainActivity : BaseActivity() , NavigationView.OnNavigationItemSelectedLis
             intent.putExtra(Constants.NAME,mUserName)
             startActivityForResult(intent,CREATE_BOARD_REQUEST_CODE)
         }
+
+        // Disable StrictMode for network operations on the main thread (only for testing)
+        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+        StrictMode.setThreadPolicy(policy)
 
 
     }
@@ -216,6 +221,7 @@ class MainActivity : BaseActivity() , NavigationView.OnNavigationItemSelectedLis
         hideProgressDialog()
         val editor : SharedPreferences.Editor = mSharedPreferences.edit()
         editor.putBoolean(Constants.FCM_TOKEN_UPDATED,true)
+
         editor.apply()
         showProgressDialog(resources.getString(R.string.please_wait))
         FirestoreClass().loadUserData(this,true)

@@ -37,7 +37,8 @@ object Constants {
 
     const val FLOWNIX_PREFERENCES = "FlownixPrefs"
 
-    const val FCM_BASE_URL : String = "https://fcm.googleapis.com/v1/projects/flownix-3a85a/messages:send\n"
+    const val FCM_SEND_URL = "https://fcm.googleapis.com/v1/projects/flownix-3a85a/messages:send"
+
     const val FCM_AUTHORIZATION : String = "authorization"
     const val FCM_KEY : String = "key"
     const val FCM_SERVER_KEY : String =""

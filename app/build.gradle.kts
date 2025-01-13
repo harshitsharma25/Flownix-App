@@ -1,3 +1,5 @@
+import com.android.build.api.dsl.Packaging
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -7,6 +9,10 @@ plugins {
 android {
     namespace = "com.example.flownix"
     compileSdk = 34
+
+   packaging{
+       resources.excludes.add("META-INF/DEPENDENCIES")
+   }
 
     defaultConfig {
         applicationId = "com.example.flownix"
@@ -48,6 +54,9 @@ dependencies {
     // firebase firestore
     implementation("com.google.firebase:firebase-firestore:25.1.1")
 
+    //firbase oAuth (for notification)
+    implementation("com.google.auth:google-auth-library-oauth2-http:1.19.0")
+
     // Circle image dependency
     implementation("de.hdodenhof:circleimageview:3.0.1")
 
@@ -66,6 +75,13 @@ dependencies {
 
     // firebase cloud messaging
     implementation("com.google.firebase:firebase-messaging:24.1.0")
+
+    // retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+
+    // ok Http
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
 
 
     implementation("androidx.core:core-ktx:1.13.0")

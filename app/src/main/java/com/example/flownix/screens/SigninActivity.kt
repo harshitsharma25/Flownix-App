@@ -12,6 +12,7 @@ import com.example.flownix.databinding.ActivitySigninBinding
 import com.example.flownix.firebase.FirestoreClass
 import com.example.flownix.models.User
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.messaging.FirebaseMessaging
 
 class SigninActivity : BaseActivity() {
 
@@ -53,7 +54,9 @@ class SigninActivity : BaseActivity() {
         if(validForm(email,password)){
             showProgressDialog(resources.getString(R.string.please_wait))
 
-            FirebaseAuth.getInstance().signInWithEmailAndPassword(email,password).addOnCompleteListener{ task ->
+            FirebaseAuth.getInstance()
+                .signInWithEmailAndPassword(email,password)
+                .addOnCompleteListener{ task ->
                 hideProgressDialog()
                 if(task.isSuccessful){
                     FirestoreClass().loadUserData(this)
@@ -68,6 +71,8 @@ class SigninActivity : BaseActivity() {
             }
         }
     }
+
+
 
     fun signInSuccess(loggedInUser: User) {
         hideProgressDialog()

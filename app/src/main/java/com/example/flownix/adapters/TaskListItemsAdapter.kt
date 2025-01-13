@@ -108,7 +108,7 @@ open class TaskListItemsAdapter(private val context : Context,
                 }
             }
 
-            // delete task list
+            // delete task
             holder.itemView.findViewById<ImageButton>(R.id.ib_delete_list).setOnClickListener {
                 alertDialogForDeleteList(listPosition,model.title)
             }
@@ -151,8 +151,8 @@ open class TaskListItemsAdapter(private val context : Context,
                 }
             )
 
-            val dividerItemDecoration = DividerItemDecoration(context,DividerItemDecoration.VERTICAL)
-            holder.itemView.findViewById<RecyclerView>(R.id.rv_card_list).addItemDecoration(dividerItemDecoration)
+//            val dividerItemDecoration = DividerItemDecoration(context,DividerItemDecoration.VERTICAL)
+//            holder.itemView.findViewById<RecyclerView>(R.id.rv_card_list).addItemDecoration(dividerItemDecoration)
 
             val helper = ItemTouchHelper(
                 object : ItemTouchHelper.SimpleCallback(

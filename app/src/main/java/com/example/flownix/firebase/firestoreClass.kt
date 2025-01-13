@@ -129,18 +129,16 @@ class FirestoreClass {
             .update(userHashMap)
             .addOnSuccessListener {
                 Log.i(activity.javaClass.simpleName,"Profile data Updated")
-                Toast.makeText(activity,"Profile updated Successfully",Toast.LENGTH_SHORT).show()
 
                 when(activity){
                     is MainActivity -> {
                         activity.tokenUpdateSuccess()
                     }
                     is MyProfileActivity -> {
+                        Toast.makeText(activity,"Profile updated Successfully",Toast.LENGTH_SHORT).show()
                         activity.profileUpdateSuccess()
                     }
                 }
-
-
 
             }.addOnFailureListener{
                 e ->
@@ -246,6 +244,7 @@ class FirestoreClass {
             }
     }
 
+    // updating the "assigned To" of mBoardDetails in firebase
     fun assignMemberToBoard(activity: MembersActivity,board: Board,user: User){
         val assignedToHashMap = HashMap<String,Any>()
         assignedToHashMap[Constants.ASSIGNED_TO] = board.assignedTo
